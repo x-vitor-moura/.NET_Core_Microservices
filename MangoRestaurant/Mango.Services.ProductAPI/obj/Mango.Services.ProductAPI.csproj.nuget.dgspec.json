@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Learning\\Udemy\\.NET_Core_Microservices\\MangoRestaurant\\MangoRestaurant\\Mango.Services.ProductAPI\\Mango.Services.ProductAPI.csproj": {}
+    "D:\\Learning\\Udemy\\.NET_Core_Microservices\\MangoRestaurant\\Mango.Services.ProductAPI\\Mango.Services.ProductAPI.csproj": {}
   },
   "projects": {
-    "D:\\Learning\\Udemy\\.NET_Core_Microservices\\MangoRestaurant\\MangoRestaurant\\Mango.Services.ProductAPI\\Mango.Services.ProductAPI.csproj": {
+    "D:\\Learning\\Udemy\\.NET_Core_Microservices\\MangoRestaurant\\Mango.Services.ProductAPI\\Mango.Services.ProductAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Learning\\Udemy\\.NET_Core_Microservices\\MangoRestaurant\\MangoRestaurant\\Mango.Services.ProductAPI\\Mango.Services.ProductAPI.csproj",
+        "projectUniqueName": "D:\\Learning\\Udemy\\.NET_Core_Microservices\\MangoRestaurant\\Mango.Services.ProductAPI\\Mango.Services.ProductAPI.csproj",
         "projectName": "Mango.Services.ProductAPI",
-        "projectPath": "D:\\Learning\\Udemy\\.NET_Core_Microservices\\MangoRestaurant\\MangoRestaurant\\Mango.Services.ProductAPI\\Mango.Services.ProductAPI.csproj",
+        "projectPath": "D:\\Learning\\Udemy\\.NET_Core_Microservices\\MangoRestaurant\\Mango.Services.ProductAPI\\Mango.Services.ProductAPI.csproj",
         "packagesPath": "C:\\Users\\vitor\\.nuget\\packages\\",
-        "outputPath": "D:\\Learning\\Udemy\\.NET_Core_Microservices\\MangoRestaurant\\MangoRestaurant\\Mango.Services.ProductAPI\\obj\\",
+        "outputPath": "D:\\Learning\\Udemy\\.NET_Core_Microservices\\MangoRestaurant\\Mango.Services.ProductAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\vitor\\AppData\\Roaming\\NuGet\\NuGet.Config",
