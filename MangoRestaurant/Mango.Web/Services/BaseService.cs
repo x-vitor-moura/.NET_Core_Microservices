@@ -1,7 +1,13 @@
 ﻿using Mango.Web.Models;
 using Mango.Web.Services.IServices;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Mango.Web.Services
 {
@@ -27,26 +33,31 @@ namespace Mango.Web.Services
                 client.DefaultRequestHeaders.Clear();
                 if (apiRequest.Data != null)
                 {
-                    message.Content = new StringContent(JsonConvert.SerializeObject(apiRequest.Data), Encoding.UTF8, "application/json");
+                    message.Content = new StringContent(JsonConvert.SerializeObject(apiRequest.Data),
+                        Encoding.UTF8,"application/json");
+                }
+
+                if (!string.IsNullOrEmpty(apiRequest.AccessToken))
+                {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiRequest.AccessToken);
                 }
 
                 HttpResponseMessage apiResponse = null;
                 switch (apiRequest.ApiType)
                 {
-                    case SD.APIType.POST:
+                    case SD.ApiType.POST:
                         message.Method = HttpMethod.Post;
                         break;
-                    case SD.APIType.PUT:
+                    case SD.ApiType.PUT:
                         message.Method = HttpMethod.Put;
                         break;
-                    case SD.APIType.DELETE:
+                    case SD.ApiType.DELETE:
                         message.Method = HttpMethod.Delete;
                         break;
-                    default:
+                    default :
                         message.Method = HttpMethod.Get;
                         break;
                 }
-
                 apiResponse = await client.SendAsync(message);
 
                 var apiContent = await apiResponse.Content.ReadAsStringAsync();
@@ -54,13 +65,13 @@ namespace Mango.Web.Services
                 return apiResponseDto;
 
             }
-            catch (Exception ex)
+            catch(Exception e)
             {
                 var dto = new ResponseDto
                 {
                     DisplayMessage = "Error",
-                    ErrorMessages = new List<String> { Convert.ToString(ex.Message) },
-                    isSuccess = false
+                    ErrorMessages = new List<string> { Convert.ToString(e.Message) },
+                    IsSuccess = false
                 };
                 var res = JsonConvert.SerializeObject(dto);
                 var apiResponseDto = JsonConvert.DeserializeObject<T>(res);

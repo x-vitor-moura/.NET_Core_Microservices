@@ -1,6 +1,12 @@
-﻿using Mango.Services.ProductAPI.Models.Dtos;
+﻿using Mango.Services.ProductAPI.Models.Dto;
+using Mango.Services.ProductAPI.Models.Dtos;
 using Mango.Services.ProductAPI.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Mango.Services.ProductAPI.Controllers
 {
@@ -12,10 +18,10 @@ namespace Mango.Services.ProductAPI.Controllers
 
         public ProductAPIController(IProductRepository productRepository)
         {
-            _response = new ResponseDto();
             _productRepository = productRepository;
+            this._response = new ResponseDto();
         }
-
+        [Authorize]
         [HttpGet]
         public async Task<object> Get()
         {
@@ -26,31 +32,35 @@ namespace Mango.Services.ProductAPI.Controllers
             }
             catch(Exception ex)
             {
-                _response.isSuccess = false;
-                _response.ErrorMessages = new List<String>() { ex.ToString() };
+                _response.IsSuccess = false;
+                _response.ErrorMessages
+                     = new List<string>() { ex.ToString() };
             }
             return _response;
         }
 
         [HttpGet]
+        [Authorize]
         [Route("{id}")]
         public async Task<object> Get(int id)
         {
             try
             {
-                ProductDto productDtos = await _productRepository.GetProductById(id);
-                _response.Result = productDtos;
+                ProductDto productDto = await _productRepository.GetProductById(id);
+                _response.Result = productDto;
             }
             catch (Exception ex)
             {
-                _response.isSuccess = false;
-                _response.ErrorMessages = new List<String>() { ex.ToString() };
+                _response.IsSuccess = false;
+                _response.ErrorMessages
+                     = new List<string>() { ex.ToString() };
             }
-
             return _response;
         }
 
+
         [HttpPost]
+        [Authorize]
         public async Task<object> Post([FromBody] ProductDto productDto)
         {
             try
@@ -60,14 +70,16 @@ namespace Mango.Services.ProductAPI.Controllers
             }
             catch (Exception ex)
             {
-                _response.isSuccess = false;
-                _response.ErrorMessages = new List<String>() { ex.ToString() };
+                _response.IsSuccess = false;
+                _response.ErrorMessages
+                     = new List<string>() { ex.ToString() };
             }
-
             return _response;
         }
 
+
         [HttpPut]
+        [Authorize]
         public async Task<object> Put([FromBody] ProductDto productDto)
         {
             try
@@ -77,14 +89,15 @@ namespace Mango.Services.ProductAPI.Controllers
             }
             catch (Exception ex)
             {
-                _response.isSuccess = false;
-                _response.ErrorMessages = new List<String>() { ex.ToString() };
+                _response.IsSuccess = false;
+                _response.ErrorMessages
+                     = new List<string>() { ex.ToString() };
             }
-
             return _response;
         }
 
         [HttpDelete]
+        [Authorize(Roles ="Admin")]
         [Route("{id}")]
         public async Task<object> Delete(int id)
         {
@@ -95,10 +108,10 @@ namespace Mango.Services.ProductAPI.Controllers
             }
             catch (Exception ex)
             {
-                _response.isSuccess = false;
-                _response.ErrorMessages = new List<String>() { ex.ToString() };
+                _response.IsSuccess = false;
+                _response.ErrorMessages
+                     = new List<string>() { ex.ToString() };
             }
-
             return _response;
         }
     }
