@@ -33,7 +33,6 @@ namespace Mango.Web
 
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ICartService, CartService>();
-
             services.AddControllersWithViews();
 
             services.AddAuthentication(options =>

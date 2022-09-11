@@ -1,11 +1,14 @@
 ﻿using Mango.Web.Models;
 using Mango.Web.Services.IServices;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Mango.Web.Services
 {
-    public class CartService : BaseService, ICartService
+    public class CartService : BaseService,ICartService
     {
         private readonly IHttpClientFactory _clientFactory;
 
@@ -13,7 +16,6 @@ namespace Mango.Web.Services
         {
             _clientFactory = clientFactory;
         }
-
         public async Task<T> AddToCartAsync<T>(CartDto cartDto, string token = null)
         {
             return await this.SendAsync<T>(new ApiRequest()
@@ -25,12 +27,12 @@ namespace Mango.Web.Services
             });
         }
 
-        public async Task<T> GetCartByUserIdAsync<T>(string userId, string token = null)
+        public async Task<T> GetCartByUserIdAsnyc<T>(string userId, string token = null)
         {
             return await this.SendAsync<T>(new ApiRequest()
             {
                 ApiType = SD.ApiType.GET,
-                Url = SD.ShoppingCartAPIBase + "/api/cart/GetCart" + userId,
+                Url = SD.ShoppingCartAPIBase + "/api/cart/GetCart/" + userId,
                 AccessToken = token
             });
         }
@@ -39,8 +41,9 @@ namespace Mango.Web.Services
         {
             return await this.SendAsync<T>(new ApiRequest()
             {
-                ApiType = SD.ApiType.DELETE,
-                Url = SD.ShoppingCartAPIBase + "/api/cart/RemoveCart" + cartId,
+                ApiType = SD.ApiType.POST,
+                Data = cartId,
+                Url = SD.ShoppingCartAPIBase + "/api/cart/RemoveCart",
                 AccessToken = token
             });
         }
@@ -49,7 +52,7 @@ namespace Mango.Web.Services
         {
             return await this.SendAsync<T>(new ApiRequest()
             {
-                ApiType = SD.ApiType.PUT,
+                ApiType = SD.ApiType.POST,
                 Data = cartDto,
                 Url = SD.ShoppingCartAPIBase + "/api/cart/UpdateCart",
                 AccessToken = token
